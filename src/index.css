@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --hansaRed: #f8282f;
+  --hansaBlue: #061c51;
+  --topNavBack: #f5f5f5;
+  --topContactBack: rgb(226 232 240);
+  --topContactHover: rgb(203 213 225);
+  --topNavBorder: rgb(226 232 240);
+
+  --back: rgb(241 245 249);
+  --text: #000000;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--back);
+}
+
+html::-webkit-scrollbar {
+  width: 8px;
+}
+html::-webkit-scrollbar-thumb {
+  background-color: var(--hansaBlue);
+}
+
+html::-webkit-scrollbar-track {
+  background-color: var(--topNavBorder);
+}
+
+.slider_main:hover > .control_btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.slider_main:hover > .control_right_btn {
+  right: 8px;
+}
+
+.slider_main:hover > .control_left_btn {
+  left: 8px;
+}
+
+.product_home:hover > .product_title_home {
+  width: 100%;
+  color: var(--hansaRed);
+  font-size: 21px;
+}
+
+.product_home:hover > img {
+  left: -110px;
+}
+
+.product_home:hover > .subCategoryHome {
+  left: 0;
+}
