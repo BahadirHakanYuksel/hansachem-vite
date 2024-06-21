@@ -55,4 +55,19 @@ html::-webkit-scrollbar-track {
 
 .product_home:hover > .subCategoryHome {
   left: 0;
+  pointer-events: all !important;
+}
+
+.gridForm {
+  grid-template-columns: 400px auto;
+}
+
+.footerGrid {
+  grid-template-columns: 60% auto;
+}
+
+input,
+textarea,
+button {
+  outline: 0;
 }

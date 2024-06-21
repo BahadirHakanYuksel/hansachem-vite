@@ -24,7 +24,7 @@ export const myRoutes = [
         element: <Contact />,
       },
       {
-        path: ":path_subCategoryName/:path_categoryID/:path_subCategoryID",
+        path: ":path_subCategoryName",
         element: <Products />,
       },
       {

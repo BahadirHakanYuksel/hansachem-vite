@@ -2,18 +2,35 @@ import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useMainContextData } from "../../../MainContext";
+import { searchProductHandle } from "../../../utils";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
 function HomeProducts() {
   const { t } = useTranslation();
   const navigation = useNavigate();
-  const goSubCategory = (subCategoryName, categroyID, subCategoryID) => {
+  const goSubCategory = (subCategoryName, categoryID, subCategoryID) => {
+    searchProductHandle({
+      categoryID,
+      subCategoryID,
+    });
     const urlSubCategoryName = subCategoryName.replace(/ /g, "-").toLowerCase();
-    const myURL = `/${urlSubCategoryName}/${categroyID}/${subCategoryID}`;
+    const myURL = `/${urlSubCategoryName}`;
     navigation(myURL);
   };
   const { categories } = useMainContextData();
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
   return (
-    <div>
+    <div
+      style={{
+        transform: isInView ? "none" : "translateX(-200px)",
+        opacity: isInView ? 1 : 0,
+        transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+      }}
+      ref={ref}
+    >
       <header className="text-[32px] text-slate-500 pb-1 border-b-2 border-solid mb-6 border-slate-700">
         {t("products").toUpperCase()}
       </header>
@@ -33,7 +50,7 @@ function HomeProducts() {
             />
             <div
               className={classNames(
-                "subCategoryHome absolute w-full flex flex-col gap-2.5 -left-60 top-14 h-64 overflow-y-auto px-3 text-sm font-medium duration-500",
+                "subCategoryHome absolute w-full flex flex-col gap-2.5 -left-60 top-14 h-64 overflow-y-auto px-3 text-sm font-medium duration-500 pointer-events-none",
                 {
                   "!grid !grid-cols-1": category.id === 0,
                 }

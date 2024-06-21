@@ -1,11 +1,16 @@
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const { t } = useTranslation();
+  const navigation = useNavigate();
   return (
-    <div className="w-full h-20 px-36">
-      <nav className="w-full h-full flex items-center justify-between">
-        <div className="flex items-center gap-1">
+    <div className="w-full h-20 px-36 sticky top-0 left-0 z-10 bg-[color:var(--back)]">
+      <nav className="w-full h-full flex items-center justify-between ">
+        <button
+          onClick={() => navigation("/")}
+          className="flex items-center gap-1 active:scale-105 duration-200"
+        >
           <div className="w-16 h-16 p-1 bg-white rounded-full overflow-hidden">
             <img
               src="icons/hansachemLogo.png"
@@ -21,7 +26,7 @@ function Navbar() {
               {t("mark")}
             </span>
           </div>
-        </div>
+        </button>
         <div>menu</div>
       </nav>
     </div>

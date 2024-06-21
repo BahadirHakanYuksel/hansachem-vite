@@ -18,8 +18,11 @@ const slider = createSlice({
         ? state.activeScreenIndex--
         : (state.activeScreenIndex = 2);
     },
+    updateSlide: (state, action) => {
+      state.activeScreenIndex = action.payload;
+    },
   },
 });
 
 export default slider.reducer;
-export const { rightSlide, leftSlide } = slider.actions;
+export const { rightSlide, leftSlide, updateSlide } = slider.actions;

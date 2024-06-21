@@ -2,7 +2,11 @@ import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { leftSlideHandle, rightSlideHandle } from "../../../utils";
+import {
+  leftSlideHandle,
+  rightSlideHandle,
+  updateSlideHandle,
+} from "../../../utils";
 
 function Slider() {
   const { activeScreenIndex } = useSelector((state) => state.slider);
@@ -76,7 +80,7 @@ function Slider() {
       <div className="absolute left-1/2 -translate-x-1/2 bottom-2 flex items-center gap-2.5">
         {circles.map((circle) => (
           <button
-            onClick={() => setActiveScreenIndex(circle)}
+            onClick={() => updateSlideHandle(circle)}
             key={circle}
             className="w-5 h-5 rounded-full overflow-hidden p-1 bg-white"
           >

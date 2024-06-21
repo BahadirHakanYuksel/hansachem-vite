@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import { update_lng_handle } from "../utils";
 import TopNavbar from "../components/TopNavbar";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function MainLayout() {
   const { i18n } = useTranslation();
@@ -17,6 +18,7 @@ function MainLayout() {
       <TopNavbar />
       <Navbar />
       <Outlet />
+      <Footer />
     </div>
   );
 }
