@@ -21,5 +21,6 @@
   "surname": "Soyadı",
   "email": "E-Posta",
   "writeMessage": "Mesaj Yaz",
-  "send": "Gönder"
+  "send": "Gönder",
+  "officialWebsite": "Resmi Websitesi"
 }

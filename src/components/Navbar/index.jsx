@@ -1,11 +1,16 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import NavMenu from "./NavMenu";
+import NavProductsMenu from "./NavProductsMenu";
+import { useSelector } from "react-redux";
+import { AnimatePresence } from "framer-motion";
 
 function Navbar() {
   const { t } = useTranslation();
   const navigation = useNavigate();
+  const { navProductsMenuIsOpened } = useSelector((state) => state.modal);
   return (
-    <div className="w-full h-20 px-36 sticky top-0 left-0 z-10 bg-[color:var(--back)]">
+    <div className="w-full h-20 px-36 sticky top-0 left-0 z-10 bg-[color:var(--back)] ">
       <nav className="w-full h-full flex items-center justify-between ">
         <button
           onClick={() => navigation("/")}
@@ -27,8 +32,11 @@ function Navbar() {
             </span>
           </div>
         </button>
-        <div>menu</div>
+        <NavMenu />
       </nav>
+      <AnimatePresence>
+        {navProductsMenuIsOpened && <NavProductsMenu />}
+      </AnimatePresence>
     </div>
   );
 }
