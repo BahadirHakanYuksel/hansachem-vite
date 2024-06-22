@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import MenuBtn from "./MenuBtn";
 import { useSelector } from "react-redux";
 import { darkModeHandle, lightModeHandle } from "../../../utils";
+import turkishToEnglish from "../../../consts";
 
 function NavMenu() {
   const { t } = useTranslation();
@@ -11,6 +12,9 @@ function NavMenu() {
     mode !== "dark" ? darkModeHandle() : lightModeHandle();
   };
 
+  const aboutURL = turkishToEnglish(t("about"));
+  const contactURL = turkishToEnglish(t("contact"));
+
   const navData = [
     {
       title: t("homepage"),
@@ -19,7 +23,7 @@ function NavMenu() {
     },
     {
       title: t("about"),
-      url: "/about",
+      url: `/${encodeURIComponent(aboutURL).toLowerCase()}`,
       type: "navlink",
     },
     {
@@ -29,7 +33,7 @@ function NavMenu() {
     },
     {
       title: t("contact"),
-      url: "/contact",
+      url: `/${encodeURIComponent(contactURL).toLowerCase()}`,
       type: "navlink",
     },
   ];

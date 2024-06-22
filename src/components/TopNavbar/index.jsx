@@ -14,6 +14,7 @@ function TopNavbar() {
     },
   ];
   const { i18n } = useTranslation();
+
   const changeLng = async (lng) => {
     await i18n.changeLanguage(lng);
     update_lng_handle(lng);

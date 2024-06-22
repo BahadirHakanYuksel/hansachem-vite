@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMainContextData } from "../../MainContext";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { searchProductHandle } from "../../utils";
 import { useTranslation } from "react-i18next";
+import turkishToEnglish from "../../consts";
 
 function Footer() {
   const { categories, myProducts } = useMainContextData();
@@ -18,7 +19,9 @@ function Footer() {
       categoryID,
       subCategoryID,
     });
-    const urlSubCategoryName = subCategoryName.replace(/ /g, "-").toLowerCase();
+    const urlSubCategoryName = encodeURIComponent(
+      turkishToEnglish(subCategoryName.replace(/ /g, "-"))
+    ).toLowerCase();
     const myURL = `/${urlSubCategoryName}`;
     navigation(myURL);
   };
@@ -28,11 +31,12 @@ function Footer() {
       <footer className="w-full grid gap-5 footerGrid min-h-96 bg-slate-200">
         <div className="p-3 flex flex-col gap-5">
           <div className="flex flex-wrap justify-center gap-5">
-            {categories.map((category) => (
+            {categories.map((category, index) => (
               <button
+                key={index}
                 onClick={() => setActiveCategoryId(category.id)}
                 className={classNames(
-                  "h-10 bg-transparent rounded-sm duration-200 text-black px-3 w-44 py-1 text-base font-medium",
+                  "h-10 bg-transparent rounded-full duration-200 text-black px-5 py-1 text-lg font-medium",
                   {
                     "!bg-blue-600 !text-white":
                       category.id === ActiveCategoryId,
@@ -44,8 +48,9 @@ function Footer() {
             ))}
           </div>
           <div className="grid grid-cols-3 gap-2 justify-center">
-            {categories[ActiveCategoryId].subCategories.map((sub) => (
+            {categories[ActiveCategoryId].subCategories.map((sub, index) => (
               <button
+                key={index}
                 onClick={() =>
                   goSubCategory(
                     sub.name,
@@ -53,7 +58,7 @@ function Footer() {
                     sub.id
                   )
                 }
-                className="w-full h-11 flex items-center justify-center rounded-md duration-200 bg-white hover:bg-[color:var(--hansaBlue)] hover:text-white"
+                className="w-full h-11 flex items-center justify-center rounded-md duration-200 bg-white hover:bg-[color:var(--hansaBlue)] hover:text-white font-medium"
               >
                 {sub.name}
               </button>
@@ -79,20 +84,24 @@ function Footer() {
             <header className="text-xl font-semibold text-slate-700">
               {t("contact")}
             </header>
-            <a
-              href=""
-              className="flex items-center justify-start gap-2 rounded-full px-2 h-8 hover:bg-[color:var(--hansaBlue)] text-gray-700 hover:text-white duration-200 text-base font-medium"
-            >
+            <div className="flex items-center justify-start rounded-full h-8 text-black text-base font-medium">
               <span>Tel :</span>
-              <span>tel num</span>
-            </a>
-            <a
-              href=""
-              className="flex items-center justify-start gap-2 text-base font-medium  rounded-full px-2 h-8 hover:bg-[color:var(--hansaBlue)] text-gray-700 hover:text-white duration-200"
-            >
-              <span>{t("email")} :</span>
-              <span>E-mail address</span>
-            </a>
+              <a
+                href=""
+                className="hover:bg-[color:var(--hansaBlue)] hover:text-white rounded-full px-2 duration-200"
+              >
+                00000000000
+              </a>
+            </div>
+            <div className="flex items-center justify-start text-base font-medium  rounded-full h-8 text-black">
+              <span>{t("email")} |</span>
+              <a
+                href=""
+                className="hover:bg-[color:var(--hansaBlue)] hover:text-white rounded-full px-2 duration-200"
+              >
+                ornek123@gmail.com
+              </a>
+            </div>
           </div>
         </div>
       </footer>

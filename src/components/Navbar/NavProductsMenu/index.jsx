@@ -8,6 +8,7 @@ import {
   searchProductHandle,
 } from "../../../utils";
 import { useSelector } from "react-redux";
+import turkishToEnglish from "../../../consts";
 
 function NavProductsMenu() {
   const { categories } = useMainContextData();
@@ -26,7 +27,9 @@ function NavProductsMenu() {
       categoryID,
       subCategoryID,
     });
-    const urlSubCategoryName = subCategoryName.replace(/ /g, "-").toLowerCase();
+    const urlSubCategoryName = encodeURIComponent(
+      turkishToEnglish(subCategoryName.replace(/ /g, "-"))
+    ).toLowerCase();
     const myURL = `/${urlSubCategoryName}`;
     navigation(myURL);
     closeNavProductsMenuHandle();

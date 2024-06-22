@@ -5,6 +5,7 @@ import { useMainContextData } from "../../../MainContext";
 import { searchProductHandle } from "../../../utils";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import turkishToEnglish from "../../../consts";
 
 function HomeProducts() {
   const { t } = useTranslation();
@@ -14,7 +15,9 @@ function HomeProducts() {
       categoryID,
       subCategoryID,
     });
-    const urlSubCategoryName = subCategoryName.replace(/ /g, "-").toLowerCase();
+    const urlSubCategoryName = encodeURIComponent(
+      turkishToEnglish(subCategoryName.replace(/ /g, "-"))
+    ).toLowerCase();
     const myURL = `/${urlSubCategoryName}`;
     navigation(myURL);
   };

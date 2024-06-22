@@ -52,7 +52,7 @@ function MenuBtn({ title, type, url }) {
         <button
           onClick={NavProductsMenuControl}
           className={classNames(
-            "navBtn font-medium text-base text-black duration-200 relative",
+            "navBtn font-medium text-base text-black duration-200 relative active:scale-105",
             {
               "scale-105 !text-[color:var(--hansaRed)]": productsBtnActive,
             }

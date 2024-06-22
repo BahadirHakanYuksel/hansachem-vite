@@ -5,6 +5,7 @@ import Error from "../Error";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { searchProductHandle } from "../../utils";
+import turkishToEnglish from "../../consts";
 
 function Products() {
   const { path_categoryID, path_subCategoryID } = useSelector(
@@ -18,27 +19,14 @@ function Products() {
 
   const { categories, myProducts } = useMainContextData();
 
-  const editSubCategoryName = () => {
-    var metin = path_subCategoryName;
-
-    // "-" karakterlerini boşluklarla değiştirme
-    var boslukluMetin = metin.replace(/-/g, " ");
-
-    // Her kelimenin baş harfini büyütme
-    var duzeltilmisMetin = boslukluMetin
-      .split(" ")
-      .map(function (kelime) {
-        return kelime.charAt(0).toUpperCase() + kelime.slice(1);
-      })
-      .join(" ");
-
-    setSubCategoryTitle(duzeltilmisMetin);
-  };
   const id_update = async () => {
     await categories.map((category) => {
       category.subCategories.map((sub) => {
-        const myName = sub.name.replace(/ /g, "-").toLowerCase();
+        const myName = encodeURIComponent(
+          turkishToEnglish(sub.name.replace(/ /g, "-"))
+        ).toLowerCase();
         if (myName === path_subCategoryName) {
+          setSubCategoryTitle(sub.name);
           setYesProducts(true);
           searchProductHandle({
             categoryID: category.id,
@@ -61,7 +49,6 @@ function Products() {
 
   useEffect(() => {
     document.scrollingElement.scrollTop = 0;
-    editSubCategoryName();
     id_update();
     products_update();
   }, [path_categoryID, path_subCategoryID, path_subCategoryName]);
