@@ -72,8 +72,9 @@ function NavProductsMenu() {
                 {
                   "!bg-[color:var(--hansaBlue)] !text-white !border-[color:var(--hansaBlue)]":
                     path_subCategoryName !== undefined &&
-                    sub.name.toLowerCase() ===
-                      path_subCategoryName.replace(/-/g, " "),
+                    encodeURIComponent(
+                      turkishToEnglish(sub.name.replace(/ /g, "-"))
+                    ).toLowerCase() === path_subCategoryName,
                 }
               )}
             >

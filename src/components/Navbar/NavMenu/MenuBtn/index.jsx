@@ -29,7 +29,10 @@ function MenuBtn({ title, type, url }) {
     <>
       {type === "navlink" && (
         <NavLink
-          onClick={closeNavProductsMenuHandle}
+          onClick={() => {
+            document.scrollingElement.scrollTop = 0;
+            closeNavProductsMenuHandle();
+          }}
           className={({ isActive }) =>
             classNames(
               "navBtn font-medium text-base text-black duration-200 relative",

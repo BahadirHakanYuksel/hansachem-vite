@@ -60,7 +60,7 @@ function Products() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="w-full flex flex-col px-36 mt-8 gap-5"
+          className="w-full flex flex-col px-36 mt-8 gap-5 pb-44"
         >
           <motion.header
             initial={{ width: 1 }}

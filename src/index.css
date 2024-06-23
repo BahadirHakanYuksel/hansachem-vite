@@ -15,7 +15,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   background-color: var(--back);
 }
 
@@ -68,6 +67,15 @@ html::-webkit-scrollbar-track {
 
 .navBtn:hover > span {
   width: 50%;
+}
+
+.contact_box:hover > .icon_div {
+  --tw-text-opacity: 1;
+  color: rgb(226 232 240 / var(--tw-text-opacity));
+  background-color: var(--hansaBlue);
+}
+.contact_box:hover > span {
+  color: black;
 }
 
 input,
