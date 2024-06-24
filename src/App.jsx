@@ -2,7 +2,7 @@ import { useLocation, useNavigate, useRoutes } from "react-router-dom";
 import { useDynamicRoutes } from "./myRoutes";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { url_data } from "./consts";
+import { url_en_data, url_tr_data } from "./consts";
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -10,9 +10,15 @@ function App() {
 
   useEffect(() => {
     const path_name = location.pathname;
-    url_data.forEach((url) => {
-      url.first === path_name && navigate(url.second);
-    });
+    if (i18n.language === "tr") {
+      url_tr_data.forEach((url) => {
+        url.first === path_name && navigate(url.second);
+      });
+    } else {
+      url_en_data.forEach((url) => {
+        url.first === path_name && navigate(url.second);
+      });
+    }
     // switch (path_name) {
     //   case "/about":
     //     navigate("/kurumsal");

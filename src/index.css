@@ -16,6 +16,7 @@
 
 html {
   background-color: var(--back);
+  scroll-behavior: smooth;
 }
 
 html::-webkit-scrollbar {

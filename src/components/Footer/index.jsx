@@ -1,15 +1,22 @@
 import { useState } from "react";
 import { useMainContextData } from "../../MainContext";
 import classNames from "classnames";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { searchProductHandle } from "../../utils";
 import { useTranslation } from "react-i18next";
 import turkishToEnglish from "../../consts";
+import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 function Footer() {
   const { categories, myProducts } = useMainContextData();
-  const [ActiveCategoryId, setActiveCategoryId] = useState(0);
+  const { path_categoryID } = useSelector((state) => state.products_store);
+
+  const [ActiveCategoryId, setActiveCategoryId] = useState(
+    path_categoryID ? path_categoryID : 0
+  );
   const [_products, set_products] = useState([]);
+  const { path_subCategoryName } = useParams();
 
   const { t } = useTranslation();
 
@@ -28,7 +35,7 @@ function Footer() {
 
   return (
     <div className="flex flex-col mt-20">
-      <footer className="w-full grid gap-5 footerGrid min-h-96 bg-slate-200">
+      <footer className="w-full grid gap-5 footerGrid min-h-96 bg-slate-200 py-3">
         <div className="p-3 flex flex-col gap-5">
           <div className="flex flex-wrap justify-center gap-5">
             {categories.map((category, index) => (
@@ -49,7 +56,10 @@ function Footer() {
           </div>
           <div className="grid grid-cols-3 gap-2 justify-center">
             {categories[ActiveCategoryId].subCategories.map((sub, index) => (
-              <button
+              <motion.button
+                initial={{ translateY: 44 }}
+                animate={{ translateY: 0 }}
+                transition={{ duration: 0.2 }}
                 key={index}
                 onClick={() =>
                   goSubCategory(
@@ -58,10 +68,19 @@ function Footer() {
                     sub.id
                   )
                 }
-                className="w-full h-11 flex items-center justify-center rounded-md duration-200 bg-white hover:bg-[color:var(--hansaBlue)] hover:text-white font-medium"
+                className={classNames(
+                  "w-full h-11 flex items-center justify-center rounded-md duration-200 bg-white hover:bg-[color:var(--hansaBlue)] hover:text-white font-medium border-[3px] border-solid border-transparent",
+                  {
+                    "!border-[color:var(--hansaBlue)] !bg-white !text-[color:var(--hansaBlue)] ":
+                      path_subCategoryName !== undefined &&
+                      encodeURIComponent(
+                        turkishToEnglish(sub.name.replace(/ /g, "-"))
+                      ).toLowerCase() === path_subCategoryName,
+                  }
+                )}
               >
                 {sub.name}
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>

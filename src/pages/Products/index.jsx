@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMainContextData } from "../../MainContext";
 import Error from "../Error";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { searchProductHandle } from "../../utils";
 import turkishToEnglish from "../../consts";
@@ -16,6 +16,7 @@ function Products() {
 
   const [products, setProducts] = useState([]);
   const [yesProducts, setYesProducts] = useState(false);
+  const [PageLoading, setPageLoading] = useState(true);
 
   const { categories, myProducts } = useMainContextData();
 
@@ -48,13 +49,35 @@ function Products() {
   };
 
   useEffect(() => {
+    setPageLoading(true);
     document.scrollingElement.scrollTop = 0;
     id_update();
     products_update();
+    setTimeout(() => {
+      setPageLoading(false);
+    }, 1500);
   }, [path_categoryID, path_subCategoryID, path_subCategoryName]);
 
   return (
     <>
+      <AnimatePresence>
+        {PageLoading && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed left-0 top-0 w-full h-screen z-20 bg-[color:var(--back)] text-black text-6xl flex flex-col gap-5 items-center justify-center"
+          >
+            <header className="text-5xl text-[color:var(--hansaBlue)] bg-white shadow-xl py-3 px-12 rounded-full border-4 border-solid border-[color:var(--hansaBlue)]">
+              {subCategoryTitle}
+            </header>
+
+            <header className="text-4xl text-[color:var(--hansaRed)] font-semibold">
+              Hansachem
+            </header>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {yesProducts ? (
         <motion.div
           initial={{ opacity: 0 }}
